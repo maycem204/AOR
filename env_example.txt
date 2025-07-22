@@ -1,0 +1,31 @@
+# Configuration des chemins
+KNOWLEDGE_BASE_PATH=C:\WokSpace\ABase
+OUTPUT_PATH=C:\WokSpace\AOut
+
+# Configuration LLM
+LLM_ENDPOINT=http://localhost:1234/v1/chat/completions
+LLM_MODEL=mistralai/mistral-7b-instruct-v0.3
+LLM_MAX_TOKENS=2048
+LLM_TEMPERATURE=0.7
+
+# Configuration Milvus
+MILVUS_HOST=localhost
+MILVUS_PORT=19530
+MILVUS_COLLECTION_NAME=aor_knowledge_base
+MILVUS_DIMENSION=384
+
+# Configuration Embedding
+EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+EMBEDDING_DEVICE=cpu
+
+# Configuration de similarité
+SIMILARITY_THRESHOLD=0.8
+MAX_SIMILAR_CHUNKS=5
+
+# Configuration de chunking
+CHUNK_SIZE=1000
+CHUNK_OVERLAP=200
+
+# Configuration des logs
+LOG_LEVEL=INFO
+LOG_FILE=aor.log 
