@@ -227,7 +227,7 @@ class ExcelService:
             
             if row_index is not None and column_name in df_with_responses.columns:
                 # Ajouter la réponse dans une nouvelle colonne
-                response_column = f"{column_name}_Réponse"
+                response_column = f"{column_name}_reponse"
                 
                 if response_column not in df_with_responses.columns:
                     df_with_responses[response_column] = ""

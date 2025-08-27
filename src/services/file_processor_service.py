@@ -7,14 +7,14 @@ import os
 from typing import List, Optional, Dict, Any
 import re
 from pathlib import Path
-
+from .vector_store_service import VectorStoreService # ✅ Ajouter si pas déjà présent
 from config.settings import settings
 from models.data_models import Chunk, IndexingResult
 from utils.file_utils import generate_chunk_id, is_supported_file, get_file_size_mb
 from .excel_service import ExcelService
 
 logger = logging.getLogger(__name__)
-
+from .embedding_service import EmbeddingService  # ✅ Ajouter si pas déjà présent
 class FileProcessorService:
     """
     Service pour le traitement des fichiers de connaissances
@@ -24,6 +24,8 @@ class FileProcessorService:
         """Initialise le service de traitement de fichiers"""
         self.excel_service = ExcelService()
         self.chunk_size = settings.CHUNK_SIZE
+        self.embedding_service = EmbeddingService()  # ✅ Ajouter cette ligne
+        self.vector_store_service = VectorStoreService()  # ✅ AJOUTER cette ligne
         self.chunk_overlap = settings.CHUNK_OVERLAP
         
         logger.info("Initialisation du service de traitement de fichiers")
@@ -71,10 +73,31 @@ class FileProcessorService:
                     # Diviser en chunks
                     chunks = self._create_chunks(text_content, file_path)
                     
-                    if chunks:
+                    '''if chunks:
                         total_chunks += len(chunks)
                         files_processed += 1
                         logger.info(f"✓ {len(chunks)} chunks créés pour {file_path}")
+                        '''
+                    if chunks:
+                    # Générer les embeddings
+                        contents = [chunk.content for chunk in chunks]
+                        embeddings = self.embedding_service.generate_embeddings_batch(contents)
+    
+                        for chunk, emb in zip(chunks, embeddings):
+                            chunk.embedding = emb
+    
+                    # Filtrer les chunks valides
+                        valid_chunks = [chunk for chunk in chunks if chunk.embedding is not None]
+                        logger.info(f"✓ {len(valid_chunks)} / {len(chunks)} chunks avec embeddings valides")
+    
+                     # Insérer dans la base vectorielle
+                        inserted = self.vector_store_service.insert_chunks(valid_chunks)
+                        total_vectors += inserted
+    
+                        total_chunks += len(chunks)
+                        files_processed += 1
+                        logger.info(f"✓ {inserted} vecteurs insérés pour {file_path}")
+                    #w houni rja3na lel code l 9dim
                     else:
                         logger.warning(f"Aucun chunk créé pour {file_path}")
                     

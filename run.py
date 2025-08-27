@@ -2,10 +2,22 @@
 """
 Script de lancement pour l'application AOR
 """
-
+import logging
 import sys
 import os
-
+sys.stdout.reconfigure(encoding='utf-8')
+# Force l'encodage UTF-8 du terminal Windows (Python 3.7+ requis)
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
+# Configuration du logging avec sortie UTF-8
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler(sys.stdout)]
+)
+    
+    
 # Ajouter le répertoire src au path Python
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 

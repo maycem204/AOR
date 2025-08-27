@@ -1,6 +1,6 @@
 # Configuration des chemins
-KNOWLEDGE_BASE_PATH=C:\WokSpace\ABase
-OUTPUT_PATH=C:\WokSpace\AOut
+KNOWLEDGE_BASE_PATH=C:\Users\Lenovo\Documents\Stage\BMCI
+OUTPUT_PATH=C:\Users\Lenovo\Documents\Stage
 
 # Configuration LLM
 LLM_ENDPOINT=http://localhost:1234/v1/chat/completions
@@ -19,7 +19,7 @@ EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
 EMBEDDING_DEVICE=cpu
 
 # Configuration de similarité
-SIMILARITY_THRESHOLD=0.8
+SIMILARITY_THRESHOLD=0.6
 MAX_SIMILAR_CHUNKS=5
 
 # Configuration de chunking

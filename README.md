@@ -25,7 +25,7 @@ AOR est un système intelligent qui automatise la réponse aux appels d'offre en
                        │  Base Vectorielle│    │  Fichier Excel  │
                        │     (Milvus)     │    │   avec Réponses │
                        └──────────────────┘    └─────────────────┘
-```
+``` 
 
 ## Installation
 
